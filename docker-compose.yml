@@ -1,0 +1,52 @@
+version: '3.1'
+
+services:
+  ghost:
+    depends_on:
+      - db
+    container_name: ${CONTAINER_GHOST_NAME}
+    image: ghost:alpine
+    restart: unless-stopped
+    volumes:
+      - ${GHOST_CONTENT}:/var/lib/ghost/content
+    ports:
+      - 2368:2368
+    environment:
+      # see https://docs.ghost.org/docs/config#section-running-ghost-with-config-env-variables
+      
+      # url: ${URL}
+      database__client: mysql
+      database__connection__host: ${CONTAINER_DB_NAME}
+      database__connection__port: 3306
+      database__connection__user: ${MYSQL_USER}
+      database__connection__password: ${MYSQL_PASSWORD}
+      database__connection__database: ${MYSQL_DATABASE}
+
+      VIRTUAL_HOST: ${DOMAINS}
+      LETSENCRYPT_HOST: ${DOMAINS}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+    
+    logging:
+      options:
+        max-size: ${LOGGING_OPTIONS_MAX_SIZE:-200k}
+  
+  db:
+    container_name: ${CONTAINER_DB_NAME}
+    image: mariadb:10
+    restart: unless-stopped
+    volumes:
+      - ${DB_PATH}:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-p${MYSQL_ROOT_PASSWORD}"]
+      timeout: 20s
+      retries: 10
+
+networks:
+    default:
+       external:
+         name: ${NETWORK}
