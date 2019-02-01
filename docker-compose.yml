@@ -5,8 +5,8 @@ services:
     depends_on:
       - db
     container_name: ${CONTAINER_GHOST_NAME}
-    image: ghost:alpine
-    # build: ghost
+    # image: ghost:alpine
+    build: ghost
     restart: unless-stopped
     volumes:
       - ${GHOST_CONTENT}:/var/lib/ghost/content
