@@ -28,6 +28,7 @@ services:
       storage__oss-store__accessKeySecret: ${ACCESS_KEY_SECRET}
       storage__oss-store__bucket: ${BUCKET}
       storage__oss-store__region: ${REGION}
+      storage__oss-store__origin: ${ORIGIN}
       storage__oss-store__fileKey__prefix: ghost/
 
       VIRTUAL_HOST: ${DOMAINS}
