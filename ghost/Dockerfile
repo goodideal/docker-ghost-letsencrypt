@@ -1,3 +1,4 @@
 FROM ghost:alpine
 
-RUN npm install ghost-oss-store
+RUN apk add --no-cache git && \
+  npm install andy1247008998/ghost-oss-store
