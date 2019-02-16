@@ -24,12 +24,12 @@ services:
       database__connection__database: ${MYSQL_DATABASE}
 
       storage__active: ${STORAGE}
-      storage__oss-store__accessKeyId: ${ACCESS_KEY_ID}
-      storage__oss-store__accessKeySecret: ${ACCESS_KEY_SECRET}
-      storage__oss-store__bucket: ${BUCKET}
-      storage__oss-store__region: ${REGION}
-      storage__oss-store__origin: ${ORIGIN}
-      storage__oss-store__fileKey__prefix: ghost/
+      storage__ghost-oss-store__accessKeyId: ${ACCESS_KEY_ID}
+      storage__ghost-oss-store__accessKeySecret: ${ACCESS_KEY_SECRET}
+      storage__ghost-oss-store__bucket: ${BUCKET}
+      storage__ghost-oss-store__region: ${REGION}
+      storage__ghost-oss-store__origin: ${ORIGIN}
+      storage__ghost-oss-store__fileKey__prefix: ghost/
 
       VIRTUAL_HOST: ${DOMAINS}
       LETSENCRYPT_HOST: ${DOMAINS}
